@@ -1,0 +1,21 @@
+.hiddenlist li{
+    padding: 10px 20px;
+    font-weight: 600;
+    border-radius: 5px;
+    
+}
+
+.droplist li{
+    padding: 8px 5px;
+    border-radius: 5px;
+    font-weight: 600;
+    
+}
+
+.droplist li:hover{
+    background-color: rgb(212, 211, 211);
+}
+
+.hiddenlist li:hover{
+    background-color: rgb(212, 211, 211);
+}
