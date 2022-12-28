@@ -1,8 +1,20 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { toast } from "react-toastify";
+import { Authentication } from "../pages/_app";
 import styles from '../styles/Navber.module.css'
 
 const Navber = () => {
+  const {user,loading,logout} = useContext(Authentication)
+
+  // Handling logout \
+  const handlelogout = () =>{
+    logout()
+    .then(res=>toast.success("Logged out succcessfullt",{
+      toastId: 487878
+    }))
+
+  }
 
     // Handling navber hideen or not
     const [hidden,setHidden] = useState(false)
@@ -10,6 +22,8 @@ const Navber = () => {
 <Link href={'/'}>
   <li>Home</li>
 </Link>
+{
+  user?.uid ? <>
 <Link href={'/'}>
   <li>Add Task</li>
 </Link>
@@ -18,7 +32,16 @@ const Navber = () => {
 </Link>
 <Link href={'/'}>
   <li>Completed Task</li>
-</Link></>
+</Link>
+
+</>:<>
+<Link className="btn btn-primary" href={'/login'}>
+<li>
+  Loign</li></Link>
+  
+</>
+}
+</>
 
   return (
     <div>
@@ -62,10 +85,11 @@ const Navber = () => {
                 links
             }
            </ul>
-          <div className="dropdown dropdown-end">
+          {
+            user?.uid ? <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
-                <img src="https://placeimg.com/80/80/people" />
+                <img src={user?.photoURL} />
               </div>
             </label>
             <ul
@@ -74,18 +98,21 @@ const Navber = () => {
             >
               <li>
                 <a className="justify-between">
-                  Profile
-                  <span className="badge">New</span>
+                  {
+                    user?.displayName
+                  }
+                  
                 </a>
               </li>
               <li>
                 <a>Settings</a>
               </li>
-              <li>
+              <li onClick={handlelogout}>
                 <a>Logout</a>
               </li>
             </ul>
-          </div>
+          </div>:<></>
+          }
         </div>
       </div>
       {/* Navber ends */}
