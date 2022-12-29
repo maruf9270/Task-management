@@ -4,6 +4,7 @@ import Datepicker from "react-tailwindcss-datepicker";
 import { TimePicker } from 'antd';
 import { Dayjs } from 'dayjs';
 import { Authentication } from "./_app";
+import { toast } from "react-toastify";
 
 const add_task = () => {
     const {user} = useContext(Authentication)
@@ -24,6 +25,50 @@ const onChange = (time, timeString) => {
   };
 
 
+// Sending the data to the data base 
+const database = (props) =>{
+  const data = props;
+  const from = data.form
+  delete data.form;
+  fetch(`${process.env.NEXT_PUBLIC_server}/tasks`,{
+    method:"post",
+    headers:{
+    "content-type":"application/json"
+    },
+    body: JSON.stringify(data)
+  })
+  .then(res=>res.json())
+  .then(data=>{
+    console.log(data);
+    toast.success("Insrted successfully");
+    from.reset()
+  })
+  .catch(err=>{
+    console.log(err);
+    toast.error("Something went wrong please try again letter")
+  })
+
+}
+
+// Sending the image to database
+const imageupdate= (props)=>{
+  const task = props
+  const formdata= new FormData()
+  formdata.append("image",task.image)
+  fetch(`https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_imagebb}`,{
+            method:"POST",
+            body: formdata
+        })
+        .then(res=>res.json())
+        .then(data=>{
+          task.image = data.data;
+          database(task)
+           
+        })
+        .catch(err=>console.log(err))
+
+}
+
 
 // Handling form submit
 const handleSubmit =(e)=>{
@@ -34,15 +79,20 @@ const handleSubmit =(e)=>{
     const details = form.details.value;
    
     const task = {
-        user:"kfj",
+        user: user?.email,
         title,
-        date: value.newValue.startDate,
+        date: value,
         time: ttime,
         details,
+        completed:false,
+        image,
+        form
 
 
 
     }
+
+    imageupdate(task)
 }
   return (
     <div>

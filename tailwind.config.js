@@ -5,9 +5,10 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
     "./node_modules/flowbite/**/*.js",
     "./node_modules/react-tailwindcss-datepicker/dist/index.esm.js",
+    'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}',
   ],
   theme: {
     extend: {},
   },
-  plugins: [require("daisyui"),require('flowbite/plugin')],
+  plugins: [require("daisyui"),require('flowbite/plugin'),require('flowbite/plugin')],
 }

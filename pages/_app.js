@@ -6,6 +6,9 @@ export const Authentication = createContext();
 import '../styles/globals.css'
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+
 
 
 
@@ -70,6 +73,8 @@ const update = (data) =>{
   console.log(data);
   return updateProfile(auth.currentUser,data)
 }
+
+const queryClient = new QueryClient();
 // Context api values
 const value = {
  user
@@ -85,7 +90,9 @@ const value = {
 
   return <Authentication.Provider value={value}>
     
-    <Component {...pageProps} />
+   <QueryClientProvider client={queryClient}>
+   <Component {...pageProps} />
     <ToastContainer />
+   </QueryClientProvider>
     </Authentication.Provider>
 }
