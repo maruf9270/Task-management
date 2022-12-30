@@ -3,6 +3,7 @@ import Link from "next/link";
 import Router from "next/router";
 import { useContext, useReducer, useState } from "react";
 import { toast } from "react-toastify";
+import Footer from "../components/Footer";
 import Navber from "../components/Navber";
 import { Authentication } from "./_app";
 
@@ -19,6 +20,7 @@ const index = () => {
         signUpWithEmail()
         .then(res=>res.json())
         .then(data=>{
+          Router.push('/')
 
         })
         .catch(err=>{
@@ -169,6 +171,7 @@ const index = () => {
           </div>
         </div>
       </section>
+      <Footer></Footer>
     </div>
   );
 };

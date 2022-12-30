@@ -2,6 +2,7 @@ import Link from "next/link";
 import Router from "next/router";
 import { useContext, useReducer } from "react";
 import { toast } from "react-toastify";
+import Footer from "../components/Footer";
 import Navber from "../components/Navber";
 import { Authentication } from "./_app";
 
@@ -39,8 +40,15 @@ const signup = () => {
     }
 
     if (type === "password") {
-      state[type] = payload;
-      return state;
+      const password = action.payload;
+        if(password.length < 6){
+          toast.error("Password must be at least six charecter long",{ toastId: 'passerror1',})
+          return state
+        } 
+       else{
+        state[action.type] = action.payload;
+        return state
+       }
     }
     if (type === "image") {
       const formdate = new FormData();
@@ -69,7 +77,7 @@ const sendData = () =>{
 
     //Sending the image to the server
     const handleimage = () =>{
-        fetch(`https://api.imgbb.com/1/upload?expiration=600&key=${process.env.NEXT_PUBLIC_imagebb}`,{
+        fetch(`https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_imagebb}`,{
             method:"POST",
             body: state.image
         })
@@ -244,6 +252,7 @@ const sendData = () =>{
           </div>
         </div>
       </section>
+      <Footer></Footer>
     </div>
   );
 };

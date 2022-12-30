@@ -6,6 +6,8 @@ import { Dayjs } from "dayjs";
 import { Authentication } from "./_app";
 import { toast } from "react-toastify";
 import Router from "next/router";
+import Footer from "../components/Footer";
+import BifLoader from "../components/BifLoader";
 const add_task = () => {
   const { user, loading } = useContext(Authentication);
 
@@ -115,7 +117,7 @@ const add_task = () => {
   };
 
   if (loading) {
-    return <div>Loading</div>;
+    return <BifLoader></BifLoader>;
   } 
  
 
@@ -124,7 +126,7 @@ const add_task = () => {
       <div>
         
         <Navber></Navber>
-        <div className="border border-black rounded-lg p-10">
+        <div className="border border-stone-200 mb-5 rounded-lg p-10">
           <div className="text-center mt-5">
             <h2 className="text-3xl font-bold text-blue-600">Add Your Task</h2>
           </div>
@@ -166,11 +168,15 @@ const add_task = () => {
             <div>
               {/* 
     <TimePicker use12Hours onChange={onChange} /> */}
+              <label className="label">
+                    <span className="label-text">Time</span>
+                  </label>
               <TimePicker
                 use12Hours
                 format="h:mm:ss A"
                 onChange={onChange}
                 style={{ width: 140 }}
+                
               />
               {/* <TimePicker use12Hours format="h:mm a" onChange={onChange} /> */}
             </div>
@@ -185,18 +191,20 @@ const add_task = () => {
                 className="file-input file-input-bordered w-full max-w-xs"
                 required
                 name="image"
+                
               />
             </div>
 
             {/* details */}
-            <div className="form-control">
+            <div className="form-control my-4">
               <label className="label">
                 <span className="label-text">Details</span>
               </label>
               <textarea
                 className="textarea textarea-bordered h-24"
-                placeholder="Bio"
+                placeholder="Details"
                 name="details"
+                required
               ></textarea>
             </div>
 
@@ -206,6 +214,11 @@ const add_task = () => {
               </button>
             </div>
           </form>
+        </div>
+        
+        <div>
+        
+          <Footer></Footer>
         </div>
       </div>
     );
