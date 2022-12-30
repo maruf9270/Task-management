@@ -1,4 +1,5 @@
 import { Cookie } from "@next/font/google";
+import Head from "next/head";
 import Link from "next/link";
 import Router from "next/router";
 import { useContext, useReducer, useState } from "react";
@@ -70,6 +71,9 @@ const index = () => {
     }
   return (
     <div>
+      <Head>
+        <title>Login</title>
+      </Head>
       <div>
         <Navber></Navber>
       </div>

@@ -1,4 +1,5 @@
 
+import Head from "next/head";
 import Link from "next/link";
 import Router from "next/router";
 import { NextResponse } from "next/server";
@@ -57,8 +58,13 @@ const my_tasks = () => {
    if(user?.uid){
     return (
         <div>
+            <Head>
+                
+        <title>My-Tasks</title>
+      </Head>
+
             <div><Navber></Navber></div>
-            <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 my-5 gap-5">
                 {
                   tasks.length > 0 ?   tasks.map(t=><Card key={t._id} task={t}></Card>):<div className="h-[100vh] w-[90vw] flex justify-center items-center text-4xl font-bold" >You Do not have any task. <Link href={'/add-task'} className="text-blue-800">Add Task</Link> </div> 
                 }

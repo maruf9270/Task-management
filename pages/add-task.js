@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import Router from "next/router";
 import Footer from "../components/Footer";
 import BifLoader from "../components/BifLoader";
+import Head from "next/head";
 const add_task = () => {
   const { user, loading } = useContext(Authentication);
 
@@ -124,6 +125,10 @@ const add_task = () => {
   if(user?.uid){
     return (
       <div>
+        <Head>
+          
+        <title>Add-Task</title>
+      </Head>
         
         <Navber></Navber>
         <div className="border border-stone-200 mb-5 rounded-lg p-10">

@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Link from "next/link";
 import Router from "next/router";
 import { useContext, useReducer } from "react";
@@ -115,6 +116,10 @@ const sendData = () =>{
   };
   return (
     <div>
+      
+      <Head>
+        <title>Sign Up</title>
+      </Head>
         <div>
             <Navber></Navber>
         </div>
