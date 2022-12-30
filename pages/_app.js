@@ -2,7 +2,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import app from "../Firebase/Firebase.config";
-export const Authentication = createContext();
+export const Authentication = createContext({});
 import '../styles/globals.css'
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -26,7 +26,7 @@ const auth = getAuth(app)
   
   
   // Setting the user
-const [user,setUser] = useState(null)
+const [user,setUser] = useState('')
 const [loading,setLoading] = useState(true)
 
 
@@ -48,11 +48,15 @@ const signUpWithEmailandPassword = (email,password)=>{
 
 // USing google social login
 const signUpWithEmail = () =>{
+  cookies.set("loggedin",true)
+  Router.push('/')
   return signInWithPopup(auth,provider)
 }
 
 //Using email and password to login
 const loginWithemailandpassword=(email,password)=>{
+  cookies.set("loggedin",true)
+  Router.push('/')
   console.log(email);
   return signInWithEmailAndPassword(auth,email,password)
 }
@@ -65,6 +69,7 @@ const forgotpass = (email) =>{
 
 // Handling signout
 const logout = () =>{
+  cookies.set("loggedin",false)
   return signOut(auth)
 }
 
@@ -77,15 +82,15 @@ const update = (data) =>{
 const queryClient = new QueryClient();
 // Context api values
 const value = {
- user
-,loading
+loading
 ,setLoading
 ,signUpWithEmailandPassword
 ,signUpWithEmail
 ,loginWithemailandpassword
 ,forgotpass
 ,logout
-,update}
+,update
+,user}
 
 
   return <Authentication.Provider value={value}>

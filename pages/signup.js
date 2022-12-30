@@ -1,11 +1,12 @@
 import Link from "next/link";
+import Router from "next/router";
 import { useContext, useReducer } from "react";
 import { toast } from "react-toastify";
 import Navber from "../components/Navber";
 import { Authentication } from "./_app";
 
 const signup = () => {
-  const { signUpWithEmail,signUpWithEmailandPassword,update,user } = useContext(Authentication);
+  const { signUpWithEmail,signUpWithEmailandPassword,update,user,logout } = useContext(Authentication);
     console.log(user);
   // Handling google sign up
   const handlegoolge = () => {
@@ -58,7 +59,12 @@ const sendData = () =>{
         body: JSON.stringify(state)
     })
     .then(res=>res.json())
-    .then(res=>console.log(res))
+    .then(res=>
+      {
+        logout();
+        toast.success("Please login")
+        Router.push('/login')
+      })
 }
 
     //Sending the image to the server

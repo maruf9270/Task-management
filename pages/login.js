@@ -1,4 +1,6 @@
+import { Cookie } from "@next/font/google";
 import Link from "next/link";
+import Router from "next/router";
 import { useContext, useReducer, useState } from "react";
 import { toast } from "react-toastify";
 import Navber from "../components/Navber";
@@ -16,7 +18,9 @@ const index = () => {
      const handleGogle = () =>{
         signUpWithEmail()
         .then(res=>res.json())
-        .then(data=>{})
+        .then(data=>{
+
+        })
         .catch(err=>{
             console.log(err);
         })
@@ -55,7 +59,10 @@ const index = () => {
     const handleSubmit =(e)=>{
       e.preventDefault()
       loginWithemailandpassword(state.email,state.password)
-      .then(data=>{})
+      .then(data=>{
+      
+        Router.push('/')
+      })
       .catch(err=>{toast.error(err.message) 
       console.log(err)})
     

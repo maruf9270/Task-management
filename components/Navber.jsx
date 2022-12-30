@@ -6,7 +6,7 @@ import { Authentication } from "../pages/_app";
 import styles from "../styles/Navber.module.css";
 
 const Navber = () => {
-  const { user, loading, logout } = useContext(Authentication);
+  const {user,loading,logout } = useContext(Authentication);
 
   // Handling logout \
   const handlelogout = () => {

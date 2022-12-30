@@ -1,15 +1,37 @@
 import Navber from "../components/Navber";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Datepicker from "react-tailwindcss-datepicker";
 import { TimePicker } from 'antd';
 import { Dayjs } from 'dayjs';
 import { Authentication } from "./_app";
 import { toast } from "react-toastify";
-
+import Router from "next/router";
 const add_task = () => {
-    const {user} = useContext(Authentication)
-    console.log(user);
+    const {user,loading} = useContext(Authentication)
 
+  
+
+  
+  
+
+    const [loaded,setLoaded] = useState(false)
+    
+    useEffect(() => {
+       
+        // conditional redirect
+        if(user?.uid){
+            // with router.push the page may be added to history
+            // the browser on history back will  go back to this page and then forward again to the redirected page
+            // you can prevent this behaviour using location.replace
+            Router.push('/add-task')
+           //location.replace("/hello-nextjs")
+        }else{
+            setLoaded(true)
+            Router.push('/login')
+        }
+      },[]);
+
+    
     // Time value
     const [ttime,setTime] = useState('')
 const onChange = (time, timeString) => {
@@ -94,6 +116,13 @@ const handleSubmit =(e)=>{
 
     imageupdate(task)
 }
+
+if(loaded || loading){
+  return <div>Loading</div>
+}
+
+else{
+  
   return (
     <div>
       <script src="../path/to/flowbite/dist/flowbite.js"></script>
@@ -170,6 +199,7 @@ const handleSubmit =(e)=>{
       </div>
     </div>
   );
+}
 };
 
 export default add_task;
