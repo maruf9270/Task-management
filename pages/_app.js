@@ -7,6 +7,7 @@ import '../styles/globals.css'
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Router from "next/router";
 
 
 
@@ -48,16 +49,12 @@ const signUpWithEmailandPassword = (email,password)=>{
 
 // USing google social login
 const signUpWithEmail = () =>{
-  cookies.set("loggedin",true)
-  Router.push('/')
+  
   return signInWithPopup(auth,provider)
 }
 
 //Using email and password to login
 const loginWithemailandpassword=(email,password)=>{
-  cookies.set("loggedin",true)
-  Router.push('/')
-  console.log(email);
   return signInWithEmailAndPassword(auth,email,password)
 }
 
@@ -69,7 +66,7 @@ const forgotpass = (email) =>{
 
 // Handling signout
 const logout = () =>{
-  cookies.set("loggedin",false)
+ 
   return signOut(auth)
 }
 

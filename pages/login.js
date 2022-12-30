@@ -60,7 +60,6 @@ const index = () => {
       e.preventDefault()
       loginWithemailandpassword(state.email,state.password)
       .then(data=>{
-      
         Router.push('/')
       })
       .catch(err=>{toast.error(err.message) 

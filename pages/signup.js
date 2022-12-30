@@ -55,7 +55,7 @@ const signup = () => {
 //   Sending the user data to the server
 const sendData = () =>{
     fetch(`${process.env.NEXT_PUBLIC_server}/users`,{
-        method:"post",headers:{"content-type":"application/json"},
+        method:"POST",headers:{"content-type":"application/json"},
         body: JSON.stringify(state)
     })
     .then(res=>res.json())
